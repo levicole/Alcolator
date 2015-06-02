@@ -34,7 +34,7 @@
                                 <rect key="frame" x="14" y="58" width="572" height="31"/>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOK-Ar-7sL">
-                                <rect key="frame" x="31" y="160" width="538" height="26"/>
+                                <rect key="frame" x="244" y="160" width="113" height="26"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -44,6 +44,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Ww-if-W8A" firstAttribute="centerX" secondItem="93u-OB-vAB" secondAttribute="centerX" constant="-0.5" id="3lA-vR-hxI"/>
+                            <constraint firstItem="JOK-Ar-7sL" firstAttribute="width" secondItem="93u-OB-vAB" secondAttribute="width" id="7A5-fJ-mpf"/>
                             <constraint firstItem="r9K-e0-XM0" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="7MI-RB-Bdh"/>
                             <constraint firstItem="6Ww-if-W8A" firstAttribute="top" secondItem="r9K-e0-XM0" secondAttribute="bottom" constant="8" id="CHn-0h-iT3"/>
                             <constraint firstItem="6Ww-if-W8A" firstAttribute="width" secondItem="r9K-e0-XM0" secondAttribute="width" id="DCI-7b-WTS"/>
@@ -51,6 +52,7 @@
                             <constraint firstItem="JOK-Ar-7sL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="HPi-be-OFw"/>
                             <constraint firstItem="r9K-e0-XM0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Ki2-vV-Bhl"/>
                             <constraint firstItem="6Ww-if-W8A" firstAttribute="centerX" secondItem="r9K-e0-XM0" secondAttribute="centerX" id="Njd-8q-rvR"/>
+                            <constraint firstItem="JOK-Ar-7sL" firstAttribute="centerX" secondItem="93u-OB-vAB" secondAttribute="centerX" id="Rj1-tP-gRV"/>
                             <constraint firstItem="93u-OB-vAB" firstAttribute="top" secondItem="6Ww-if-W8A" secondAttribute="bottom" constant="8" id="f8B-kd-ZWg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JOK-Ar-7sL" secondAttribute="trailing" constant="15" id="kJn-Vd-Dd9"/>
                             <constraint firstItem="6Ww-if-W8A" firstAttribute="centerX" secondItem="r9K-e0-XM0" secondAttribute="centerX" constant="-22" id="p5m-Hf-ae2"/>
@@ -59,6 +61,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="p5m-Hf-ae2"/>
+                                <exclude reference="HPi-be-OFw"/>
+                                <exclude reference="kJn-Vd-Dd9"/>
                             </mask>
                         </variation>
                         <connections>
