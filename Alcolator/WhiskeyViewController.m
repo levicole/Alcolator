@@ -13,19 +13,26 @@
 @end
 
 @implementation WhiskeyViewController
-- (void) buttonPressed:(UIButton *)sender;
+- (float) convertBeverage;
 {
-    [self.beerPercentTextField resignFirstResponder];
     int numberOfBeers = self.beerCountSlider.value;
     int ouncesInOneBeerGlass = 12;
     float alcoholPercentageOfBeer = [self.beerPercentTextField.text floatValue] / 100;
     float ouncesOfAlcoholPerBeer  = ouncesInOneBeerGlass * alcoholPercentageOfBeer;
     float ouncesOfAlcoholTotal    = ouncesOfAlcoholPerBeer * numberOfBeers;
-    
     float ouncesInOneWhiskeyGlass = 1;
     float alcoholPercentageOfWhiskey = 0.4;
     float ouncesOfAlcoholPerWhiskeyGlass = ouncesInOneWhiskeyGlass * alcoholPercentageOfWhiskey;
     float numberOfWhiskeyGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal / ouncesOfAlcoholPerWhiskeyGlass;
+    return numberOfWhiskeyGlassesForEquivalentAlcoholAmount;
+}
+
+- (void) buttonPressed:(UIButton *)sender;
+{
+    [self.beerPercentTextField resignFirstResponder];
+    int numberOfBeers = self.beerCountSlider.value;
+    
+    float numberOfWhiskeyGlassesForEquivalentAlcoholAmount = [self convertBeverage];
     
     NSString *beerText;
     if (numberOfBeers == 1) {
@@ -35,13 +42,14 @@
     }
     
     NSString *whiskeyText;
-    if (numberOfBeers == 1) {
+    if (numberOfWhiskeyGlassesForEquivalentAlcoholAmount == 1) {
         whiskeyText = NSLocalizedString(@"shot", @"singular show");
     } else {
         whiskeyText = NSLocalizedString(@"shots", @"plural of shots");
     }
     
-    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil), numberOfBeers, beerText, [self.beerPercentTextField.text floatValue], numberOfWhiskeyGlassesForEquivalentAlcoholAmount, whiskeyText];
+    NSLog(@"%.1f shots of whiskey", numberOfWhiskeyGlassesForEquivalentAlcoholAmount);
+    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %d %@ of whiskey.", nil), numberOfBeers, beerText, [self.beerPercentTextField.text floatValue], (int)lround(numberOfWhiskeyGlassesForEquivalentAlcoholAmount), whiskeyText];
     self.resultLabel.text = resultText;
 }
 @end

@@ -35,11 +35,11 @@
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
      NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
-    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int)lround([self convertBeverage])]];
 }
 
-- (IBAction)buttonPressed:(id)sender {
-    [self.beerPercentTextField resignFirstResponder];
+- (float)convertBeverage;
+{
     int numberOfBeers = self.beerCountSlider.value;
     int ouncesInOneBeerGlass = 12;
     float alcoholPercentageOfBeer = [self.beerPercentTextField.text floatValue] / 100;
@@ -50,6 +50,13 @@
     float alcoholPercentageOfWine = 0.13; // 13% is the average;
     float ouncesOfAlcoholPerWineGlass = ouncesInOneWineGlass * alcoholPercentageOfWine;
     float numberOfWineGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal/ouncesOfAlcoholPerWineGlass;
+    return numberOfWineGlassesForEquivalentAlcoholAmount;
+}
+
+- (IBAction)buttonPressed:(id)sender {
+    [self.beerPercentTextField resignFirstResponder];
+    int numberOfBeers = self.beerCountSlider.value;
+    float numberOfWineGlassesForEquivalentAlcoholAmount = [self convertBeverage];
     
     NSString *beerText;
     if (numberOfBeers == 1) {
@@ -64,7 +71,9 @@
     } else {
         wineText = NSLocalizedString(@"glasses", @"plural of wine");
     }
-    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of wine.", nil), numberOfBeers, beerText,  [self.beerPercentTextField.text floatValue], numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
+    
+    NSLog(@"%.1f shots of whiskey", numberOfWineGlassesForEquivalentAlcoholAmount);
+    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %d %@ of wine.", nil), numberOfBeers, beerText,  [self.beerPercentTextField.text floatValue], (int)lround(numberOfWineGlassesForEquivalentAlcoholAmount), wineText];
     
     self.resultLabel.text = resultText;
 }
