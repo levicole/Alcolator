@@ -35,10 +35,21 @@
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
      NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
+    
+    float numberOfWineGlassesForEquivalentAlcoholAmount = [self convertBeverage];
+    
+    NSString *wineText;
+    if (numberOfWineGlassesForEquivalentAlcoholAmount == 1) {
+        wineText = NSLocalizedString(@"glass", @"singular wine");
+    } else {
+        wineText = NSLocalizedString(@"glasses", @"plural of wine");
+    }
+    
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Wine (%.1f %@)", nil), numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
 }
 
-- (IBAction)buttonPressed:(id)sender {
-    [self.beerPercentTextField resignFirstResponder];
+- (float)convertBeverage;
+{
     int numberOfBeers = self.beerCountSlider.value;
     int ouncesInOneBeerGlass = 12;
     float alcoholPercentageOfBeer = [self.beerPercentTextField.text floatValue] / 100;
@@ -49,6 +60,13 @@
     float alcoholPercentageOfWine = 0.13; // 13% is the average;
     float ouncesOfAlcoholPerWineGlass = ouncesInOneWineGlass * alcoholPercentageOfWine;
     float numberOfWineGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal/ouncesOfAlcoholPerWineGlass;
+    return numberOfWineGlassesForEquivalentAlcoholAmount;
+}
+
+- (IBAction)buttonPressed:(id)sender {
+    [self.beerPercentTextField resignFirstResponder];
+    int numberOfBeers = self.beerCountSlider.value;
+    float numberOfWineGlassesForEquivalentAlcoholAmount = [self convertBeverage];
     
     NSString *beerText;
     if (numberOfBeers == 1) {
